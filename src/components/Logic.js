@@ -1,17 +1,23 @@
-import React, { useEffect } from 'react';
 
 const getFibonacci = (n) => {
-  let first_iteration = 0; let secondary_iteration = 1; let result = 0;
+  let first_iteration = 0; let secondary_iteration = 1; let result = 0; const text = [1]
   for (let i = 0; i < n - 1; i++) {
     result = first_iteration + secondary_iteration;  
     first_iteration = secondary_iteration;
-    secondary_iteration = result 
+    secondary_iteration = result;
+    text.push(result)
   }
-  return result;
+  
+  if (n === 1) {
+    text.push(1);
+    result = 1;
+  }
+  
+  return {value: result, text: `${text.join(', ')} = ${result}`};
 }
 
 const getTriangularNumber = (n) => {
-  return (n * (n + 1)) / 2
+  return {value: (n * (n + 1)) / 2, text: `${n} x (${n} + 1}) / 2 = ${(n * (n + 1)) / 2}`}
 }
 
 const getPrimeNumber = (n) => {
@@ -24,24 +30,18 @@ const getPrimeNumber = (n) => {
     }
     if (counter_divisiors === 2) primes.push(dividend);
   }
-  return primes[primes.length - 1];
+  return {value: primes[primes.length - 1], text: `${primes.join(', ')} = ${primes[primes.length - 1]}`};
 }
 
 const getSerie = (n) => {
-  return (-3 * getPrimeNumber(n)) - (getFibonacci(n)) + (5 * getTriangularNumber(n + 1))
+  const prime_number = getPrimeNumber(n)
+  const fibonacci = getFibonacci(n)
+  const triangular_number = getTriangularNumber(n + 1)
+  const result_serie = (-3 * prime_number.value) - (fibonacci.value) + (5 * triangular_number.value);
+
+  return {result: result_serie, 
+          all_text: `Números primos: ${prime_number.text}\n\nNúmero triangular: ${triangular_number.text}\n\nFibonacci: ${fibonacci.text}\n\n`,
+          serie_text: `Serie(${n}) = (-3 * ${prime_number.value}) - ${fibonacci.value} + (5 * ${triangular_number.value}) = ${result_serie}`
+        }
 }
-
-function MiComponente() {
-  useEffect(() => {
-    console.log('Numero=',6)
-
-    console.log('fibonacci = ', getFibonacci(6))
-    console.log('Number triangular = ', getTriangularNumber(6 + 1))
-    console.log('Numeros primos = ', getPrimeNumber(6))
-    console.log('serie = ', getSerie(6))
-  }, []);
-  
-  return <h1>Hey aqui va mi logica! </h1>;
-}
-
-export default MiComponente;
+export default getSerie;

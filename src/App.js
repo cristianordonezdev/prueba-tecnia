@@ -1,12 +1,20 @@
 import './App.css';
-import Logic from './components/Logic'
+import InputNumber from './components/InputNumber'
+import Result from './components/Result';
+import React, { useState } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Hola mundo</h1>
 
-      <Logic></Logic>
+  const [number, setNumber] = useState('');
+  const [result, setResult] = useState('');
+
+  return (
+    <div className="App" class="h-full min-h-screen bg-gray-200 flex flex-col items-center py-4 lg:py-10">
+      <InputNumber setNumber={setNumber} number={number} setResult={setResult}></InputNumber>
+
+      {result && (
+        <Result result={result}></Result>
+      )}
     </div>
   );
 }
