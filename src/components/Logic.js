@@ -8,10 +8,10 @@ const getFibonacci = (n) => {
     text.push(result)
   }
   
-  if (n === 1) {
-    text.push(1);
-    result = 1;
-  }
+  // if (n === 1) {
+  //   text.push(1);
+  //   result = 1;
+  // }
   
   return {value: result, text: `${text.join(', ')} = ${result}`};
 }

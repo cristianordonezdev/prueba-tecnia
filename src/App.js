@@ -1,4 +1,3 @@
-import './App.css';
 import InputNumber from './components/InputNumber'
 import Result from './components/Result';
 import React, { useState } from 'react';
